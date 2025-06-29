@@ -1,9 +1,20 @@
+from shlex import quote
+
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from .models import Quote
 
 
 def get_date():
+    '''
+    Определяем время суток хоста.
+
+    Используется для отображения корректной темы в фронтенде (Утро, ..., Ночь)
+
+    :return:
+    day_time (str)
+    wish (str)
+    '''
     from datetime import datetime
 
     try:
@@ -28,21 +39,32 @@ def get_date():
 
     return day_time, wish
 
+def random_quote():
+    '''
+        Определяем случайную цитату (в соответствии с весами).
+
+        :return:
+        id (int)
+    '''
+    import random
+
+    quotes = list(Quote.objects.values('id','weight'))
+    ids = [q['id'] for q in quotes]
+    weights = [q['weight'] for q in quotes]
+    selected_id = random.choices(ids, weights, k=1)[0]
+
+    return selected_id
 
 
 def home_page(request):
-    import random
-
     time_theme, wish_message = get_date()
 
-    # Выбор одной из цитат, в соответствии с их весами
-    # todo пока случайная
     try:
-        quote = Quote.objects.order_by('?').first()
+        quote = Quote.objects.get(id=random_quote())
         quote.views += 1
         quote.save()
-    except Exception as e:
-        print(e)
+
+    except:
         raise Http404("Хм... Произошла какая-то ошибка\n Tg: @ogPow3r")
 
     return render(request,template_name='qoutehub/home.html',
