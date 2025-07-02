@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ValidationError
 from thefuzz import fuzz
@@ -30,21 +31,27 @@ class Quote(models.Model):
             if ratio > 90:
                 raise ValidationError({"text": f"Очень похожая цитата уже есть в базе (Схоже на {ratio}%)."})
 
-    def save(self):
-        '''Правило сохранения новой цитаты
-
-        Если у указанного автора >= 3 цитат, то первая из добавленных будет удалена, а текущая добавлена.
-        '''
-
-        # Забираем цитаты указанного автора, отсортированного по id (фактически по очереди добавления)
-        existing = Quote.objects.filter(source=self.source).order_by('id')
-        if self._state.adding and existing.count() >= 3:
-            # Определяем и дропаем самую старую запись
-            oldest = existing.first()
-            oldest.delete()
-
-        super().save()
-
 
     def __str__(self):
         return self.text
+
+class QuoteLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('user', 'quote'),)
+
+class QuoteDislike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('user', 'quote'),)
+
+class QuoteView(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('user', 'quote'),)

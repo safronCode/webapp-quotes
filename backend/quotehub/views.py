@@ -1,43 +1,12 @@
-from shlex import quote
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LogoutView
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import Http404
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 from .models import Quote
 
-
-def get_date():
-    '''
-    Определяем время суток хоста.
-
-    Используется для отображения корректной темы в фронтенде (Утро, ..., Ночь)
-
-    :return:
-    day_time (str)
-    wish (str)
-    '''
-    from datetime import datetime
-
-    try:
-        current_hour = datetime.now().hour
-    except:
-        current_hour = 18
-
-    if 5 <= current_hour < 12:
-        day_time = 'morning'
-        wish = 'Доброго утра'
-    elif 12 <= current_hour < 17:
-        day_time = 'day'
-        wish = 'Доброго дня'
-
-    elif 17 <= current_hour < 22:
-        day_time = 'evening'
-        wish = 'Доброго вечера'
-
-    else:
-        day_time = 'night'
-        wish = 'Доброй ночи'
-
-    return day_time, wish
 
 def random_quote():
     '''
@@ -57,8 +26,6 @@ def random_quote():
 
 
 def home_page(request):
-    time_theme, wish_message = get_date()
-
     try:
         quote = Quote.objects.get(id=random_quote())
         quote.views += 1
@@ -67,15 +34,26 @@ def home_page(request):
     except:
         raise Http404("Хм... Произошла какая-то ошибка\n Tg: @ogPow3r")
 
-    return render(request,template_name='qoutehub/home.html',
-                  context={'current_theme': time_theme,
-                            'wish_text':wish_message,
-                            'quote_text':quote.text,
-                            'source':quote.source,
-                            'views':quote.views,
-                            'likes':quote.likes,
-                            'dislikes':quote.dislikes}
-                  )
+    initial_data = {
+        "quoteId": quote.id,
+        "text": quote.text,
+        "likes": quote.likes,
+        "dislikes": quote.dislikes,
+        "views": quote.views,
+    }
+
+    return render(request, template_name='index.html', context={"initial_data": initial_data})
 
 def storage_page(request):
-    return HttpResponse('<h1>Storage page</h1>')
+
+    return render(request, template_name='index.html')
+
+
+class SignupView(CreateView):
+    form_class = UserCreationForm
+    template_name = "registration/signup.html"
+    success_url = reverse_lazy("login")
+
+class SiteLogoutView(LogoutView):
+    http_method_names = ["get", "post"]
+    template_name = "registration/logout.html"

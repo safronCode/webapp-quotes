@@ -1,85 +1,58 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import BackgroundLayout from "@/components/BackgroundLayout.vue";
 </script>
 
+
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <background-layout>
+    <router-view />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <nav class="mc-nav">
+      <RouterLink to="/"   class="mc-btn">Hub</RouterLink>
+      <RouterLink to="/top" class="mc-btn">Top</RouterLink>
+    </nav>
+  </background-layout>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.mc-nav {
+  position: fixed;
+  bottom: 0px;
+  left: 2%;
+  transform: translateY(20%);
+  display: flex;
+  gap: 0.1rem;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+
+.mc-btn {
+
+  width: 200px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: monospace;
+  font-size: 14px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+
+  background: url('@/assets/images/btn1.png') no-repeat center / contain;
+
+  transition: transform .1s;
 }
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.mc-btn:hover,
+.mc-btn.router-link-active {
+  background-image: url('@/assets/images/btn2.png');
 }
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.mc-btn:active {
+  transform: translateY(2px);
 }
 </style>
