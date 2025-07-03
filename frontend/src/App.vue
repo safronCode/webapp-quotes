@@ -9,7 +9,7 @@ import BackgroundLayout from "@/components/BackgroundLayout.vue";
     <router-view />
 
     <nav class="mc-nav">
-      <RouterLink to="/"   class="mc-btn">Hub</RouterLink>
+      <RouterLink to="/" class="mc-btn">Hub</RouterLink>
       <RouterLink to="/top" class="mc-btn">Top</RouterLink>
     </nav>
   </background-layout>
@@ -27,8 +27,7 @@ import BackgroundLayout from "@/components/BackgroundLayout.vue";
 
 
 .mc-btn {
-
-  width: 200px;
+  width: 300px;
   height: 40px;
 
   display: flex;

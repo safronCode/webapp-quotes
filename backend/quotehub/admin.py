@@ -3,7 +3,7 @@ from .models import Quote
 
 
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'short_text', 'source', 'weight', 'views', 'likes', 'dislikes')
+    list_display = ('id', 'short_text', 'source', 'weight')
 
     def short_text(self, obj):
         return obj.text[:50]+'\t...'

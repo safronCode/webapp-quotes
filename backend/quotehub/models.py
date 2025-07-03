@@ -9,9 +9,7 @@ class Quote(models.Model):
     text = models.TextField(max_length=550, help_text='Текст цитаты')
     source = models.TextField(max_length=120, help_text='Источник, автор')
     weight = models.FloatField(help_text='Вес частоты появления')
-    views = models.IntegerField(default=0, help_text='Число просмотров')
-    likes = models.IntegerField(default=0, help_text='Число лайков цитаты')
-    dislikes = models.IntegerField(default=0, help_text='Число дизлайков цитаты')
+
 
     def clean(self):
         '''Валидация при сохранении новых цитат.

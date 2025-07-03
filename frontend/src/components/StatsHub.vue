@@ -1,86 +1,64 @@
 <script setup>
-import { ref } from 'vue'
-import IconEmptyLike     from '@/components/icons/IconEmptyLike.vue'
-import IconFilledLike    from '@/components/icons/IconFilledLike.vue'
-import IconEmptyDislike  from '@/components/icons/IconEmptyDislike.vue'
-import IconFilledDislike from '@/components/icons/IconFilledDislike.vue'
 import IconViews from "@/components/icons/IconViews.vue";
+import ActionButton from "@/components/ActionButton.vue";
+import {useQuoteStore} from "@/store/quoteStore.js";
+import {computed, onMounted, ref} from "vue";
 
-/* счётчики; в реальном проекте придут с бэкенда  */
-const likes     = ref(1)
-const dislikes  = ref(0)
 
-/* реакция текущего пользователя: null | 'like' | 'dislike'  */
-const myVote = ref(null)
+const quoteStore = useQuoteStore()
+const backendData = JSON.parse(document.getElementById('initialData').textContent)
 
-/* --- обработчики ---------------------------------------------------- */
-function toggleLike () {
-  if (myVote.value === 'like') {          // снимаем лайк
-    likes.value--
-    myVote.value = null
-  } else {
-    if (myVote.value === 'dislike') {     // был диз — убираем
-      dislikes.value--
-    }
-    likes.value++
-    myVote.value = 'like'
-  }
-  //  здесь можно сделать axios.post('/views/quote/123/vote', {like:myVote.value})
+const quoteId = backendData.quoteId
+const quoteInfo = ref(null)
+
+const likes = computed(() => {
+  return quoteInfo.value?.like_cnt || 0
+})
+
+const dislikes = computed(() => {
+  return quoteInfo.value?.dislike_cnt || 0
+})
+
+const views = computed(() => {
+  return quoteInfo.value?.view_cnt || 0
+})
+
+const toggleLikeAndResponse = async (quoteId) => {
+  await quoteStore.toggleLike(quoteId)
+  quoteInfo.value = await quoteStore.getQuote(quoteId)
 }
 
-function toggleDislike () {
-  if (myVote.value === 'dislike') {
-    dislikes.value--
-    myVote.value = null
-  } else {
-    if (myVote.value === 'like') {
-      likes.value--
-    }
-    dislikes.value++
-    myVote.value = 'dislike'
-  }
+const toggleDislikeAndResponse = async (quoteId) => {
+  await quoteStore.toggleDislike(quoteId)
+  quoteInfo.value = await quoteStore.getQuote(quoteId)
 }
+
+onMounted(async () => {
+  quoteInfo.value = await quoteStore.getQuote(quoteId)
+})
+
 </script>
 
 <template>
-  <!-- ряд иконок -->
-  <div class="hearts">
-    <button class="heart-btn" @click="toggleLike">
-      <component
-          :is="myVote==='like' ? IconFilledLike : IconEmptyLike"
-          class="heart"
-      />
-    </button>
-
-    <button class="heart-btn" @click="toggleDislike">
-      <component
-        :is="myVote==='dislike' ? IconFilledDislike : IconEmptyDislike"
-        class="heart"
-      />
-    </button>
-
-   <icon-views style="width:130px; height:130px" />
-
-
-
-  </div>
-
-  <!-- ряд счётчиков -->
-  <div class="counters">
-    <span class="counter" @click="toggleLike">likes: {{ likes }}</span>
-    <span class="counter" @click="toggleDislike">disliked: {{ dislikes }}</span>
-    <span class="counter">views: {{ likes }}</span>
+  <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between">
+    <action-button @click="toggleLikeAndResponse(quoteId)" type="like">
+      <template #bottom-text>
+        <span class="counter">likes: {{ likes }}</span>
+      </template>
+    </action-button>
+    <action-button @click="toggleDislikeAndResponse(quoteId)" type="dislike">
+      <template #bottom-text>
+        <span class="counter">disliked: {{ dislikes }}</span>
+      </template>
+    </action-button>
+    <div style="display: flex; flex-direction: column; justify-content: center">
+      <icon-views style="width:130px; height:130px" />
+      <span class="counter">views: {{ views }}</span>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* --- расположение --------------------------------------------------- */
-.hearts {
-  display: flex;
-  justify-content: center;
-  gap: 115px;           /* чтобы цифры встали ровно под иконками */
-  margin-top: 24px;
-}
 .counters {
   display: flex;
   justify-content: center;
@@ -93,26 +71,8 @@ function toggleDislike () {
   text-shadow: 2px 2px 6px rgba(0,0,0,.35);
 }
 
-/* --- сами иконки ---------------------------------------------------- */
-.heart-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-.heart {
-  width: 128px;
-  height: 128px;
-  image-rendering: pixelated;
-  transition: transform .1s;
-}
-.heart-btn:active .heart {
-  transform: translateY(10px);            /* лёгкий «нажим» */
-}
-
-/* цифры тоже кликабельные */
 .counter {
-  cursor: pointer;
   user-select: none;
+  text-align: center;
 }
 </style>
