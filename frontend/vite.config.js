@@ -18,7 +18,7 @@ export default defineConfig({
   base: "/static/",
 
   build: {
-    outDir: "./static/qoutehub/",
+    outDir: "../backend/static/qoutehub",
     manifest: "manifest.json",
     rollupOptions: {
       input: './src/main.js',
