@@ -1,0 +1,85 @@
+{
+  "_quoteStore-yZXmGQ7j.js": {
+    "file": "assets/quoteStore-yZXmGQ7j.js",
+    "name": "quoteStore",
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/assets/fonts/EpilepsySans.ttf": {
+    "file": "assets/EpilepsySans-E4gKQ-i0.ttf",
+    "src": "src/assets/fonts/EpilepsySans.ttf"
+  },
+  "src/assets/images/bg_day.png": {
+    "file": "assets/bg_day-DJ6VExys.png",
+    "src": "src/assets/images/bg_day.png"
+  },
+  "src/assets/images/bg_evening.png": {
+    "file": "assets/bg_evening-CqZxW7xv.png",
+    "src": "src/assets/images/bg_evening.png"
+  },
+  "src/assets/images/bg_morning.png": {
+    "file": "assets/bg_morning-d9SgKbbU.png",
+    "src": "src/assets/images/bg_morning.png"
+  },
+  "src/assets/images/bg_night.png": {
+    "file": "assets/bg_night-l93hHFkO.png",
+    "src": "src/assets/images/bg_night.png"
+  },
+  "src/assets/images/btn1.png": {
+    "file": "assets/btn1-BROvFBnt.png",
+    "src": "src/assets/images/btn1.png"
+  },
+  "src/assets/images/btn2.png": {
+    "file": "assets/btn2-DvKoDI2W.png",
+    "src": "src/assets/images/btn2.png"
+  },
+  "src/main.js": {
+    "file": "assets/main-DSE8jpv_.js",
+    "name": "main",
+    "src": "src/main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/views/HubPage.vue",
+      "src/views/TopPage.vue"
+    ],
+    "css": [
+      "assets/main-CramQFVF.css"
+    ],
+    "assets": [
+      "assets/EpilepsySans-E4gKQ-i0.ttf",
+      "assets/bg_morning-d9SgKbbU.png",
+      "assets/bg_day-DJ6VExys.png",
+      "assets/bg_evening-CqZxW7xv.png",
+      "assets/bg_night-l93hHFkO.png",
+      "assets/btn1-BROvFBnt.png",
+      "assets/btn2-DvKoDI2W.png"
+    ]
+  },
+  "src/views/HubPage.vue": {
+    "file": "assets/HubPage-SoztDRCG.js",
+    "name": "HubPage",
+    "src": "src/views/HubPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_quoteStore-yZXmGQ7j.js",
+      "src/main.js"
+    ],
+    "css": [
+      "assets/HubPage-u2mDApTk.css"
+    ]
+  },
+  "src/views/TopPage.vue": {
+    "file": "assets/TopPage-S0IP5Rak.js",
+    "name": "TopPage",
+    "src": "src/views/TopPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_quoteStore-yZXmGQ7j.js",
+      "src/main.js"
+    ],
+    "css": [
+      "assets/TopPage-CZc6AG2A.css"
+    ]
+  }
+}
