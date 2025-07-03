@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: quote_web
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_database:/webapp-quotes/database/
+
+  nginx:
+    image: nginx:latest
+    container_name: quote_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./backend/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./backend/static:/webapp-quotes/static:ro
+    depends_on:
+      - web
+
+volumes:
+  sqlite_database:

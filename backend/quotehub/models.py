@@ -29,7 +29,6 @@ class Quote(models.Model):
             if ratio > 90:
                 raise ValidationError({"text": f"Очень похожая цитата уже есть в базе (Схоже на {ratio}%)."})
 
-
     def __str__(self):
         return self.text
 

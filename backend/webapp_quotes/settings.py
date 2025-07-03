@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'webapp_quotes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'database' / 'db.sqlite3',
     }
 }
 
@@ -128,9 +128,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DJANGO_VITE = {
-  "default": {
-    "dev_mode": True
-  }
+    "default": {
+        "dev_mode": True,
+        "static_url_prefix": "quotehub",
+    }
 }
 
 LOGIN_REDIRECT_URL = '/'

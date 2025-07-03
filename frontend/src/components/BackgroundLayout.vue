@@ -46,12 +46,14 @@ const pageTitle = computed(() => route.meta?.title ?? '')
     >
       {{pageTitle}}
     </span>
+    <a href="/accounts/login/" class="login-link">LogIn</a>
     <slot />
   </div>
 </template>
 
 <style scoped>
 .page-wrapper {
+  position: relative;
   min-height: 100vh;
   background-size: cover;
   background-position: center;
@@ -60,6 +62,13 @@ const pageTitle = computed(() => route.meta?.title ?? '')
 
   padding-top: 2.5%;
   text-align: center;
+}
+
+.login-link {
+  position: absolute;
+  right: 60px;
+  font-size: 72px;
+  text-decoration: none;
 }
 
 .page-wrapper--morning {
@@ -88,10 +97,6 @@ const pageTitle = computed(() => route.meta?.title ?? '')
 
 
 .page-title {
-  display: block;
-  width: max-content;
-  margin: 0 auto;
-  font-family: 'EpilepsySans', sans-serif;
   text-align: center;
   font-weight: bold;
   font-size: 72px;

@@ -1,6 +1,6 @@
 {
-  "_quoteStore-yZXmGQ7j.js": {
-    "file": "assets/quoteStore-yZXmGQ7j.js",
+  "_quoteStore-CoTbEF1_.js": {
+    "file": "assets/quoteStore-CoTbEF1_.js",
     "name": "quoteStore",
     "imports": [
       "src/main.js"
@@ -35,7 +35,7 @@
     "src": "src/assets/images/btn2.png"
   },
   "src/main.js": {
-    "file": "assets/main-DSE8jpv_.js",
+    "file": "assets/main-CUVfvrAG.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -44,7 +44,7 @@
       "src/views/TopPage.vue"
     ],
     "css": [
-      "assets/main-CramQFVF.css"
+      "assets/main-B1krobKA.css"
     ],
     "assets": [
       "assets/EpilepsySans-E4gKQ-i0.ttf",
@@ -57,12 +57,12 @@
     ]
   },
   "src/views/HubPage.vue": {
-    "file": "assets/HubPage-SoztDRCG.js",
+    "file": "assets/HubPage-De44u2WB.js",
     "name": "HubPage",
     "src": "src/views/HubPage.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_quoteStore-yZXmGQ7j.js",
+      "_quoteStore-CoTbEF1_.js",
       "src/main.js"
     ],
     "css": [
@@ -70,12 +70,12 @@
     ]
   },
   "src/views/TopPage.vue": {
-    "file": "assets/TopPage-S0IP5Rak.js",
+    "file": "assets/TopPage-BnrWFE0c.js",
     "name": "TopPage",
     "src": "src/views/TopPage.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_quoteStore-yZXmGQ7j.js",
+      "_quoteStore-CoTbEF1_.js",
       "src/main.js"
     ],
     "css": [

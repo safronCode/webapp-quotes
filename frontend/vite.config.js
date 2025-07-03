@@ -15,10 +15,10 @@ export default defineConfig({
       origin: 'http://localhost:5173'
     },
 
-  base: "/static/",
+  base: "/static/quotehub/",
 
   build: {
-    outDir: "../backend/static/qoutehub",
+    outDir: "../backend/static/quotehub",
     manifest: "manifest.json",
     rollupOptions: {
       input: './src/main.js',
